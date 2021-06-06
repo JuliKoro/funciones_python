@@ -135,16 +135,22 @@ if __name__ == '__main__':
     # A partir de aquí escriba el código que
     # invoca al as funciones y resuelve el enunciado
     # Leer el enunciado con atención y consultar cualquier duda
-    dados_tirados = lista_aleatoria() # Primera tirada de dados
-    print('Primera tirada de dados:\n', dados_tirados)
-    dado_max = contar_max(dados_tirados) # Dado que más se repite en al tirada
     dados_guardados = [] # Lista que almacena los dados más repetidos
-    dados_guardados = guardar_dados(dados_guardados, dados_tirados, dado_max) # Guardo en dados_guardados
-    print(f'El dado {dado_max} es el más repetido {len(dados_guardados)} veces.')
-    tiradas = 1
+    intentos = 0 # Cantidad de intentos para ganar
     while len(dados_guardados) != 5: # Hasta tener 5 dados iguales
-        dados_tirados = lista_aleatoria(cantidad=5-len(dados_guardados)) # Vuelve a tirar los dados restantes
-        tiradas += 1
-        print(f'Tirada nro. {tiradas}:\n{dados_tirados}')
-        dados_guardados = guardar_dados(dados_guardados, dados_tirados, dado_max) # Guardo los repetidos a dado_max
-    print(dados_guardados, f'\n¡Generala!\n Lo conseguiste luego de {tiradas} tiradas.')
+        dados_guardados.clear() # Reinicia los dados guardados
+        for i in range(1, 4): # Permite tirar hasta 3 veces
+            if i == 1:
+                dados_tirados = lista_aleatoria() # Tirada de dados
+                print(f'Tirada nro. {i}:\n{dados_tirados}')
+                dado_max = contar_max(dados_tirados) # Dado que más se repite en al tirada
+                dados_guardados = guardar_dados(dados_guardados, dados_tirados, dado_max) # Guardo en dados_guardados
+                print(f'El dado {dado_max} es el más repetido {len(dados_guardados)} veces.')
+            else:
+                dados_tirados = lista_aleatoria(cantidad=5-len(dados_guardados)) # Vuelve a tirar los dados restantes
+                print(f'Tirada nro. {i}:\n{dados_tirados}')
+                dados_guardados = guardar_dados(dados_guardados, dados_tirados, dado_max) # Guardo los repetidos a dado_max
+        intentos += 1
+        if len(dados_guardados) != 5:
+            print('Alpiste, perdiste. ¡Vamos de nuevo!\n')
+    print(dados_guardados, f'\n¡Generala!\n Lo conseguiste luego de {i} tiradas y {intentos} intentos.')
