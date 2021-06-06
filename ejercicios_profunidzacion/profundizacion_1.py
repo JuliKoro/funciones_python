@@ -150,6 +150,8 @@ if __name__ == '__main__':
                 dados_tirados = lista_aleatoria(cantidad=5-len(dados_guardados)) # Vuelve a tirar los dados restantes
                 print(f'Tirada nro. {i}:\n{dados_tirados}')
                 dados_guardados = guardar_dados(dados_guardados, dados_tirados, dado_max) # Guardo los repetidos a dado_max
+            if len(dados_guardados) == 5:
+                break
         intentos += 1
         if len(dados_guardados) != 5:
             print('Alpiste, perdiste. ¡Vamos de nuevo!\n')
